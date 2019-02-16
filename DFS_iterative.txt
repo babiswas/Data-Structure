@@ -1,0 +1,26 @@
+from collections import defaultdict
+
+class Graph:
+    def __init__(self,vertices):
+        self.V=vertices
+        self.graph=defaultdict(list)
+    def addedges(self,u,v):
+        self.graph[u].append(v)
+    def DFSutil(self,visited,v):
+        visited[v]=True
+        print(v)
+        for i in self.graph[v]:
+            if not visited[i]:
+                self.DFSutil(visited,i)
+    def DFS(self,v):
+        visited=[False]*self.V
+        self.DFSutil(visited,v)
+
+g=Graph(4)
+g.addedges(2,0)
+g.addedges(0,2)
+g.addedges(2,3)
+g.addedges(3,3)
+g.addedges(0,1)
+g.addedges(1,2)
+g.DFS(2)
