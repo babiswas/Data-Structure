@@ -1,0 +1,30 @@
+from collections import defaultdict
+
+class Graph:
+    def __init__(self,vertices):
+        self.V=vertices
+        self.graph=defaultdict(list)
+    def addedges(self,u,v):
+        self.graph[u].append(v)
+    def BFS(self,v):
+        queue=[]
+        visited=[False]*self.V
+        queue.append(v)
+        visited[v]=True
+        while queue:
+            s=queue.pop(0)
+            print(s)
+            for i in self.graph[s]:
+                if not visited[i]:
+                    queue.append(i)
+                    visited[i]=True
+
+
+g=Graph(4)
+g.addedges(2,0)
+g.addedges(0,2)
+g.addedges(0,1)
+g.addedges(1,2)
+g.addedges(2,3)
+g.addedges(3,3)
+g.BFS(2)
