@@ -1,0 +1,36 @@
+from collections import defaultdict
+
+
+class Graph:
+
+  def __init__(self, vertices):
+     self.V = vertices
+     self.graph = defaultdict(list)
+
+  def addedges(self, u, v):
+     self.graph[u].append(v)
+
+  def topsort(self):
+     visited = [False] * self.V
+     stack = []
+     for i in range(0, self.V):
+        if not visited[i]:
+            self.topsortutil(visited, stack, i)
+     print(stack)
+
+  def topsortutil(self, visited, stack, u):
+      visited[u] = True
+      for i in self.graph[u]:
+         if not visited[i]:
+             self.topsortutil(visited, stack, i)
+      stack.insert(0,u)
+
+
+g = Graph(6)
+g.addedges(5, 2)
+g.addedges(5, 0)
+g.addedges(4, 0)
+g.addedges(4, 1)
+g.addedges(2, 3)
+g.addedges(3, 1)
+g.topsort()    
