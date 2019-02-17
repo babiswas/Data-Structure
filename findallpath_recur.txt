@@ -1,0 +1,32 @@
+from collections import defaultdict
+class Graph:
+    def __init__(self,vertices):
+        self.V=vertices
+        self.graph=defaultdict(list)
+    def addedges(self,u,v):
+        self.graph[u].append(v)
+    def find_path(self,u,v):
+        visited=[False]*self.V
+        path=[]
+        self.path_util(visited,path,u,v)
+    def path_util(self,visited,path,u,v):
+        visited[u]=True
+        path.append(u)
+        if u==v:
+            print(path)
+        else:
+            for i in self.graph[u]:
+                if not visited[i]:
+                    self.path_util(visited,path,i,v)
+        path.pop()
+        visited[u]=False
+g=Graph(5)
+g.addedges(2,0)
+g.addedges(0,2)
+g.addedges(2,1)
+g.addedges(1,3)
+g.addedges(0,3)
+g.addedges(0,1)
+g.addedges(1,4)
+g.addedges(4,3)
+g.find_path(2,3)
