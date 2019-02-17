@@ -1,0 +1,49 @@
+from collections import defaultdict
+
+class Graph:
+    def __init__(self,vertex):
+        self.V=vertex
+        self.graph=defaultdict(list)
+    def addedges(self,u,v):
+        self.graph[u].append(v)
+    def printallpath(self,u,v):
+        visited=[False]*self.V
+        path=[]
+        stack=[]
+        temp=[]
+        stack.append(u)
+        while stack:
+            s=stack.pop()
+            if not visited[s]:
+                visited[s]=True
+                path.append(s)
+            if s==v:
+                print(path)
+                for i in reversed(path):
+                    if self.all_visited(i,visited):
+                        path.pop(path.index(i))
+                        temp.append(i)
+                    else:
+                        break
+                for i in temp:
+                    visited[i]=False
+            else:
+                for i in self.graph[s]:
+                    if not visited[i]:
+                        stack.append(i)
+    def all_visited(self,i,visited):
+        for j in self.graph[i]:
+            if not visited[j]:
+                return False
+        return True
+                           
+g=Graph(4)
+g.addedges(2,0)
+g.addedges(0,2)
+g.addedges(2,1)
+g.addedges(0,1)
+g.addedges(1,3)
+g.addedges(0,3)
+g.printallpath(2,3)
+            
+   
