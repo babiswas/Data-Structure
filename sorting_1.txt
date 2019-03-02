@@ -1,0 +1,86 @@
+def bubble_sort(l):
+  for i in range(0,len(l)-1):
+     for j in range(0,len(l)-1):
+       if l[j]>l[j+1]:
+         l[j],l[j+1]=l[j+1],l[j]
+
+l=[12,10,13,14,9,4,5,1,20]
+bubble_sort(l)
+print(l)
+
+
+def selection_sort(A):
+  for i in range(0,len(l)):
+     for j in range(i,len(l)):
+        if l[i]>l[j]:
+          l[i],l[j]=l[j],l[i]
+
+l=[12,10,11,1,2,3,14,15,9]
+selection_sort(l)
+print(l)
+
+
+def insertion_sort(l,start):
+   current=0
+   hole=0
+   for i in range(start+1,len(l)):
+       current=l[i]
+       hole=i
+       while current<l[hole-1] and hole>0:
+          l[hole]=l[hole-1]
+          hole=hole-1
+       l[hole]=current
+l=[12,33,20,10,1,2,34]
+insertion_sort(l,0)
+print(l)
+
+def partition(l,start,end):
+    wall=start-1
+    pivot=l[end]
+    for i in range(start,end):
+        if l[i]<pivot:
+          wall=wall+1
+          l[wall],l[i]=l[i],l[wall]
+    wall=wall+1
+    l[wall],l[end]=pivot,l[wall]
+    return wall
+
+def Quick_sort(l,start,end):
+    if start<end:
+       index=partition(l,start,end)
+       Quick_sort(l,start,index-1)
+       Quick_sort(l,index+1,end)
+
+l=[21,11,10,20,26,19,3]
+Quick_sort(l,0,6)
+print(l)
+
+def merge(l,start,end,middle):
+   list1=l[start:middle]
+   list2=l[middle:end+1]
+   list1.append(99999999)
+   list2.append(99999999)
+   i=j=0
+   for k in range(start,end+1):
+       if list1[i]<=list2[j]:
+          l[k]=list1[i]
+          i=i+1
+       else:
+          l[k]=list2[j]
+          j=j+1
+       
+def merge_sort(l,start,end):
+     if start<end:
+        middle=(start+end)//2
+        merge_sort(l,start,middle)
+        merge_sort(l,middle+1,end)
+        merge(l,start,end,middle)
+
+l=[12,11,10,23,1,45,20,67,71]
+merge_sort(l,0,8)
+print(l)
+
+
+
+
+
