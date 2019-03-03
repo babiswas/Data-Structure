@@ -1,0 +1,69 @@
+class Node:
+  def __init__(self,a):
+     self.value=a
+     self.left=None
+     self.right=None
+  def insert(self,a):
+     if not self:
+       self.value=a
+     else:
+       if self.value<a:
+          if not self.right:
+             self.right=Node(a)
+          else:
+             self.right.insert(a)
+       elif self.value>a:
+          if not self.left:
+             self.left=Node(a)
+          else:
+             self.left.insert(a)
+       else:
+          print("Duplication not allowed")
+  def inorder(self):
+     if self:
+       if self.left:
+          self.left.inorder()
+       print(self.value)
+       if self.right:
+          self.right.inorder()
+  def levelorder(self):
+     queue=[]
+     if self:
+       queue.append(self)
+     while queue:
+       x=queue.pop(0)
+       print(x.value)
+       if x.left:
+         queue.append(x.left)
+       if x.right:
+         queue.append(x.right)
+
+def height(node):
+  l=0
+  r=0
+  if not node:
+     return 0
+  else:
+    if node.left:
+       l=height(node.left)
+    if node.right:
+       r=height(node.right)
+    if l>=r:
+       return l+1
+    else:
+       return r+1
+
+if __name__=="__main__":
+   a=Node(6)
+   a.insert(12)
+   a.insert(8)
+   a.insert(18)
+   a.insert(11)
+   a.insert(3)
+   a.insert(5)
+   print("Printing the inorder traversal of a tree")
+   a.inorder()
+   print("Printing the level order traversal of a tree")
+   a.levelorder()
+   print("The height of the tree is")
+   print(height(a))
