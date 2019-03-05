@@ -1,0 +1,80 @@
+from _testcapi import INT_MAX, INT_MIN
+
+class Node:
+    def __init__(self,a):
+        self.value=a
+        self.left=None
+        self.right=None
+    def insert(self,a):
+        if not self:
+            self.value=a
+        elif self.value>a:
+            if self.left:
+                self.left.insert(a)
+            else:
+                self.left=Node(a)
+        elif self.value<a:
+            if self.right:
+                self.right.insert(a)
+            else:
+                self.right=Node(a)
+        else:
+            print("Duplication Not allowed")
+
+def common_nodes(node1,node2):
+    if node1 and node2:
+        test1=node1
+        test2=node2
+        stack1=[]
+        stack2=[]
+        while True:
+            if test1:
+              stack1.append(test1)
+              test1=test1.left
+            elif test2:
+              stack2.append(test2)
+              test2=test2.left
+            elif stack1 and stack2:
+              test1=stack1[-1]
+              test2=stack2[-1]
+              if test1.value==test2.value:
+                  print(test1.value)
+                  test1=test1.right
+                  test2=test2.right
+                  stack1.pop()
+                  stack2.pop()
+              elif test1.value>test2.value:
+                  stack2.pop()
+                  test2=test2.right
+                  test1=None
+              else: 
+                  stack1.pop()
+                  test2=None
+                  test1=test1.right
+            else:
+                break
+                  
+if __name__=="__main__":
+    print("This is the first tree:")
+    a=Node(12)
+    a.insert(6)
+    a.insert(1)
+    a.insert(8)
+    a.insert(9)
+    a.insert(28)
+    a.insert(16)
+    a.insert(11)
+    a.insert(25)
+    a.insert(30)
+    print("This is the second tree:")
+    b=Node(14)
+    b.insert(16)
+    b.insert(25)
+    b.insert(30)
+    b.insert(28)
+    b.insert(10)
+    b.insert(8)
+    b.insert(12)
+    b.insert(6)
+    print("The common nodes in both the trees are:")
+    common_nodes(a,b)
