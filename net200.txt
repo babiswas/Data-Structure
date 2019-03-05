@@ -1,0 +1,82 @@
+from _testcapi import INT_MAX, INT_MIN
+
+class Node:
+    def __init__(self,a):
+        self.value=a
+        self.left=None
+        self.right=None
+    def insert(self,a):
+        if not self:
+            self.value=a
+        elif self.value>a:
+            if self.left:
+                self.left.insert(a)
+            else:
+                self.left=Node(a)
+        elif self.value<a:
+            if self.right:
+                self.right.insert(a)
+            else:
+                self.right=Node(a)
+        else:
+            print("Duplication Not allowed")
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+    def levelorder(self):
+        queue=[]
+        if self:
+           queue.append(self)
+        else:
+            return
+        while queue:
+            x=queue.pop(0)
+            print(x.value)
+            if x.left:
+                queue.append(x.left)
+            if x.right:
+                queue.append(x.right)
+    def inorder_iterative(self):
+        if self:
+            test=self
+            stack=[]
+            while True:
+                if test:
+                    stack.append(test)
+                    test=test.left
+                elif stack:
+                    test=stack.pop()
+                    print(test.value)
+                    test=test.right
+                else:
+                    break
+
+def isBST(node,INT_MIN,INT_MAX):
+    if not node:
+        return True
+    elif (node.value>INT_MIN) and (node.value<INT_MAX):
+        return isBST(node.left,INT_MIN,node.value) and isBST(node.right,node.value,INT_MAX)
+    else:
+        return False
+        
+if __name__=="__main__":
+    a=Node(12)
+    a.insert(4)
+    a.insert(8)
+    a.insert(1)
+    a.insert(19)
+    a.insert(16)
+    a.insert(28)
+    print("The inorder traversal of the tree is:")
+    a.inorder()
+    print("The level order traversal of the tree is:")
+    a.levelorder()
+    print("The iterative inorder traversal:")
+    a.inorder_iterative()
+    print("Checking if the tree is BST")
+    print(isBST(a,INT_MIN,INT_MAX))
+    
