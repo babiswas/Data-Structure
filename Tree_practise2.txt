@@ -1,0 +1,93 @@
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.right=None
+        self.left=None
+        
+def createTreeUtil(l,low,high,size):
+    if (getindex()>=size or low>high):
+        return None
+    root=Node(l[getindex()])
+    incindex()
+    if(low==high):
+        return root
+    for i in range(getindex(),high+1):
+        if l[i]>root.value:
+           ind=i
+           break
+    root.left=createTreeUtil(l,getindex(),i-1,size)
+    root.right=createTreeUtil(l,i,high,size)
+    return root
+        
+        
+def getindex():
+    return createTreeUtil.index
+
+def incindex():
+    createTreeUtil.index+=1
+    return createTreeUtil.index
+
+def createTree(l):
+    size=len(l)
+    low=0
+    high=size-1
+    createTreeUtil.index=0
+    root=createTreeUtil(l,low,high,size)
+    return root
+
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.value)
+        inorder(root.right)
+l=[10,5,1,7,40,50]
+root=createTree(l)
+inorder(root)
+
+
+Sorted array to BST
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.right=None
+        self.left=None
+
+def sort_BST(l,start,end):
+    if start<end:
+        mid=(start+end)//2
+        root=Node(l[mid])
+        root.left=sort_BST(l,start,mid)
+        root.right=sort_BST(l,mid+1,end)
+        return root
+
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.value)
+        inorder(root.right)
+
+if __name__=="__main__":
+   l=[12,14,18,21,25,29]
+   root=sort_BST(l,0,len(l))
+   inorder(root)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
