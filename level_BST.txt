@@ -1,0 +1,40 @@
+from _testcapi import INT_MAX, INT_MIN
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.max=None
+        self.min=None
+
+def lvl_BST(l):
+    if len(l)==0:
+        return True
+    i=0
+    node=Node(l[i])
+    node.max=INT_MAX
+    node.min=INT_MIN
+    queue=[]
+    queue.append(node)
+    i=i+1
+    while queue and i!=len(l):
+        s=queue.pop(0)
+        print(s.value)
+        if i<len(l) and (l[i]<s.value and l[i]>s.min):
+            node=Node(l[i])
+            i=i+1
+            node.max=s.value
+            node.min=s.min
+            queue.append(node)
+        if i<len(l) and (l[i]>s.value and l[i]<s.max):
+            node=Node(l[i])
+            i=i+1
+            node.max=s.max
+            node.min=s.value
+            queue.append(node)
+        print(i)
+    if(i==len(l)):
+        return True
+    return False
+
+if __name__=="__main__":
+    l=[7,4,12,3,6,8,1,5,10]
+    print(lvl_BST(l))
