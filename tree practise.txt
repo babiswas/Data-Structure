@@ -1,0 +1,267 @@
+Tree:
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,data):
+        if not self:
+            self.value=data
+        elif self.value>data:
+            if self.left:
+                self.left.insert(data)
+            else:
+                self.left=Node(data)
+        elif self.value<data:
+            if self.right:
+                self.right.insert(data)
+            else:
+                self.right=Node(data)
+        else:
+            print("Duplication not allowed")
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(28)
+    node.insert(14)
+    node.insert(4)
+    node.insert(6)
+    node.insert(1)
+    node.insert(3)
+    node.insert(13)
+    node.insert(32)
+    node.insert(20)
+    node.inorder()
+
+
+Binary Search Tree:
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,data):
+        if not self:
+            self.value=data
+        elif self.value>data:
+            if self.left:
+                self.left.insert(data)
+            else:
+                self.left=Node(data)
+        elif self.value<data:
+            if self.right:
+                self.right.insert(data)
+            else:
+                self.right=Node(data)
+        else:
+            print("Duplication not allowed")
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+    def inorder_level(self):
+        if self:
+            queue=[]
+            queue.append(self)
+            while queue:
+                s=queue.pop(0)
+                print(s.value)
+                if s.left:
+                    queue.append(s.left)
+                if s.right:
+                    queue.append(s.right)
+        else:
+            print("Level order traversal not possible.")
+    def inorder_iterative(self):
+        if self:
+            stack=[]
+            test=self
+            while True:
+                if test:
+                    stack.append(test)
+                    test=test.left
+                elif stack:
+                    test=stack.pop(-1)
+                    print(test.value)
+                    test=test.right
+                else:
+                    break
+        
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(28)
+    node.insert(14)
+    node.insert(4)
+    node.insert(6)
+    node.insert(1)
+    node.insert(3)
+    node.insert(13)
+    node.insert(32)
+    node.insert(20)
+    print("Inorder Traversal")
+    node.inorder()
+    print("Level order Traversal")
+    node.inorder_level()
+    print("Iterative inorder traversal")
+    node.inorder_iterative()
+    
+Common Nodes of Binary Tree:
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,data):
+        if not self:
+            self.value=data
+        elif self.value>data:
+            if self.left:
+                self.left.insert(data)
+            else:
+                self.left=Node(data)
+        elif self.value<data:
+            if self.right:
+                self.right.insert(data)
+            else:
+                self.right=Node(data)
+        else:
+            print("Duplication not allowed")
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+    def inorder_level(self):
+        if self:
+            queue=[]
+            queue.append(self)
+            while queue:
+                s=queue.pop(0)
+                print(s.value)
+                if s.left:
+                    queue.append(s.left)
+                if s.right:
+                    queue.append(s.right)
+        else:
+            print("Level order traversal not possible.")
+    def inorder_iterative(self):
+        if self:
+            stack=[]
+            test=self
+            while True:
+                if test:
+                    stack.append(test)
+                    test=test.left
+                elif stack:
+                    test=stack.pop(-1)
+                    print(test.value)
+                    test=test.right
+                else:
+                    break
+def common_nodes(root1,root2):
+    stack1=[]
+    stack2=[]
+    test1=root1
+    test2=root2
+    while True:
+        if test1:
+            stack1.append(test1)
+            test1=test1.left
+        elif test2:
+            stack2.append(test2)
+            test2=test2.left
+        elif stack1 and stack2:
+            test1=stack1[-1]
+            test2=stack2[-1]
+            if test1.value==test2.value:
+                print(test1.value)
+                test1=test1.right
+                test2=test2.right
+                stack1.pop(-1)
+                stack2.pop(-1)
+            elif test1.value>test2.value:
+                test1=None
+                stack2.pop(-1)
+                test2=test2.right
+            elif test1.value<test2.value:
+                test2=None
+                stack1.pop(-1)
+                test1=test1.right
+        else:
+            break
+               
+if __name__=="__main__":
+   print("Creating the first tree:")
+   node=Node(12)
+   node.insert(4)
+   node.insert(7)
+   node.insert(3)
+   node.insert(1)
+   node.insert(19)
+   node.insert(15)
+   node.insert(32)
+   node.insert(21)
+   print("Creating the second tree:")
+   node1=Node(14)
+   node1.insert(6)
+   node1.insert(3)
+   node1.insert(1)
+   node1.insert(5)
+   node1.insert(23)
+   node1.insert(24)
+   node1.insert(21)
+   node1.insert(32)
+   print("Printing the common nodes:")
+   common_nodes(node,node1)
+
+
+from platform import node
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.right=None
+        self.left=None
+
+def sort_BST(l,start,end):
+    if start<end:
+        mid=(start+end)//2
+        node=Node(l[mid])
+        node.left=sort_BST(l,start,mid)
+        node.right=sort_BST(l,mid+1,end)
+        return node
+    
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.value)
+        inorder(root.right)
+def preorder(root):
+    if root:
+        print(root.value)
+        preorder(root.left)
+        preorder(root.right)
+
+if __name__=="__main__":
+    l=[12,16,18,23,24,29,32]
+    root=sort_BST(l,0,len(l))
+    print("Inorder traversal of the tree")
+    inorder(root)
+    print("Preorder traversal traversal of the tree")
+    preorder(root)
+
+
+    
