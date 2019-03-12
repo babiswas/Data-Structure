@@ -1,0 +1,53 @@
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,data):
+        if not self:
+            self.value=data
+        elif self.value>data:
+            if self.left:
+                self.left.insert(data)
+            else:
+                self.left=Node(data)
+        elif self.value<data:
+            if self.right:
+                self.right.insert(data)
+            else:
+                self.right=Node(data)
+        else:
+            print("Duplication not allowed")
+    def preorder(self):
+        if self:
+            stack=[]
+            stack.append(self)
+            while stack:
+                s=stack.pop(-1)
+                print(s.value)
+                if s.right:
+                    stack.append(s.right)
+                if s.left:
+                    stack.append(s.left)
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+                    
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(4)
+    node.insert(1)
+    node.insert(25)
+    node.insert(19)
+    node.insert(16)
+    node.insert(30)
+    node.insert(10)
+    node.insert(5)
+    print("Displaying inorder traversal")
+    node.inorder()
+    print("Displaying pre order traversal")
+    node.preorder()
