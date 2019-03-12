@@ -1,0 +1,133 @@
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        elif self.value>value:
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left=Node(value)
+        elif self.value<value:
+            if self.right:
+                self.right.insert(value)
+            else:
+                self.right=Node(value)
+        else:
+            print("Duplication Not allowed")
+            
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.value)
+        inorder(root.right)
+
+def height(root):
+    i=0
+    j=0
+    if not root:
+        return 0
+    else:
+        i=height(root.left)
+        j=height(root.right)
+        if i>j:
+            return i+1
+        else:
+            return j+1
+
+if __name__=="__main__":
+    print("Constructing the tree")
+    node=Node(12)
+    node.insert(20)
+    node.insert(5)
+    node.insert(3)
+    node.insert(15)
+    node.insert(29)
+    node.insert(1)
+    node.insert(8)
+    node.insert(17)
+    print("printing the inorder traversal of the tree")
+    inorder(node)
+    print("printing the height of the tree")
+    print(height(node))
+
+
+Mirror of a BST:
+----------------
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        elif self.value>value:
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left=Node(value)
+        elif self.value<value:
+            if self.right:
+                self.right.insert(value)
+            else:
+                self.right=Node(value)
+        else:
+            print("Duplication Not allowed")
+            
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.value)
+        inorder(root.right)
+
+def height(root):
+    i=0
+    j=0
+    if not root:
+        return 0
+    else:
+        i=height(root.left)
+        j=height(root.right)
+        if i>j:
+            return i+1
+        else:
+            return j+1
+        
+        
+def mirror(root):
+    if not root:
+        return root
+    else:
+        test1=root.left
+        test2=root.right
+        root.left=test2
+        root.right=test1
+        mirror(root.left)
+        mirror(root.right)
+        return root
+
+if __name__=="__main__":
+    print("Constructing the tree")
+    node=Node(12)
+    node.insert(20)
+    node.insert(5)
+    node.insert(3)
+    node.insert(15)
+    node.insert(29)
+    node.insert(1)
+    node.insert(8)
+    node.insert(17)
+    print("printing the inorder traversal of the tree")
+    inorder(node)
+    print("printing the height of the tree")
+    print(height(node))
+    print("The mirror of a Tree is:")
+    mirror(node)
+    print("Inorder after mirroring")
+    inorder(node)
+------------------------------------------------------------------------------------------------------------------------
