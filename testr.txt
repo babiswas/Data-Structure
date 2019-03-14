@@ -1,0 +1,39 @@
+This is the inorder successor of the node.
+
+def inorder_successor(root,node):
+   if node.right:
+      return minm(root.right)
+   else:
+      test1=root
+      suc=None
+      while test1:
+         if node.data>test.data:
+            test=test.right
+         elif node.data<test.data:
+            suc=test
+            test=test.left
+         else:
+            return suc
+      return suc
+
+
+This is the inorder predecessor of the node.
+
+def inorder_predecessor(root,node):
+   if node.left:
+      return max(node.left)
+   else:
+      test1=root
+      suc=None
+      while test1:
+         if node.data>test.data:
+            suc=test
+            test=test.right
+         elif node.data<test.data:
+            test=test.left
+         else:
+            return suc
+      return suc
+
+             
+  
