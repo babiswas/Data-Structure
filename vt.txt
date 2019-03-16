@@ -1,0 +1,59 @@
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+        self.id=0
+        
+    def insert(self,value):
+        if not self:
+            self.value=value
+        elif self.value>value:
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left=Node(value)
+                self.left.id=self.id-1
+        elif self.value<value:
+            if self.right:
+                self.right.insert(value)
+            else:
+                self.right=Node(value)
+                self.right.id=self.id+1
+        else:
+            print("Duplication not allowed")
+    
+    def vert_trav(self):
+        hsh={}
+        if self:
+            queue=[]
+            queue.append(self)
+            while queue:
+                s=queue.pop(0)
+                if s.id not in hsh:
+                    hsh[s.id]=[]
+                    hsh[s.id].append(s.value)
+                else:
+                    hsh[s.id].append(s.value)
+                if s.left:
+                    queue.append(s.left)
+                if s.right:
+                    queue.append(s.right)
+            for i in sorted(hsh.keys()):
+                print(hsh[i][:])
+
+        
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(7)
+    node.insert(1)
+    node.insert(2)
+    node.insert(0)
+    node.insert(22)
+    node.insert(25)
+    node.insert(28)
+    node.insert(24)
+    node.insert(14)
+    print("Vertical order traversal of the tree")
+    node.vert_trav()
