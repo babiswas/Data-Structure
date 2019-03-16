@@ -1,0 +1,84 @@
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+        
+    def insert(self,value):
+        if not self:
+            self.value=value
+        elif self.value>value:
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left=Node(value)
+        elif self.value<value:
+            if self.right:
+                self.right.insert(value)
+            else:
+                self.right=Node(value)
+        else:
+            print("Duplication not allowed")
+            
+    def inorder(self):
+        if self:
+          stack=[]
+          test=self
+          while True:
+              if test:
+                  stack.append(test)
+                  test=test.left
+              elif stack:
+                  test=stack.pop(-1)
+                  print(test.value)
+                  test=test.right
+              else:
+                  break
+              
+    def preorder(self):
+        if self:
+            stack=[]
+            test=self
+            stack.append(test)
+            while stack:
+                s=stack.pop(-1)
+                print(s.value)
+                if s.right:
+                    stack.append(s.right)
+                if s.left:
+                    stack.append(s.left)
+                    
+    def postorder(self):
+        stack1=[]
+        stack2=[]
+        test=self
+        if self:
+            stack1.append(test)
+            while stack1:
+                m=stack1.pop(-1)
+                stack2.append(m)
+                if m.left:
+                    stack1.append(m.left)
+                if m.right:
+                    stack1.append(m.right)
+        while stack2:
+            print(stack2.pop(-1).value)
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(7)
+    node.insert(4)
+    node.insert(1)
+    node.insert(2)
+    node.insert(0)
+    node.insert(22)
+    node.insert(25)
+    node.insert(28)
+    node.insert(24)
+    node.insert(14)
+    print("The inorder traversal of the tree:")
+    node.inorder()
+    print("The pretorder traversal of the tree:")
+    node.preorder()
+    print("The postorder traversal of the node")
+    node.postorder()
