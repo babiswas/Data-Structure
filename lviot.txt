@@ -1,0 +1,75 @@
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+        
+    def insert(self,value):
+        if not self:
+            self.value=value
+        elif self.value>value:
+            if self.left:
+                self.left.insert(value)
+            else:
+                self.left=Node(value)
+        elif self.value<value:
+            if self.right:
+                self.right.insert(value)
+            else:
+                self.right=Node(value)
+        else:
+            print("Duplication not allowed")
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+                
+            
+def height(root):
+    if not root:
+        return 0
+    else:
+        i=height(root.left)
+        j=height(root.right)
+        if i>j:
+            return i+1
+        else:
+            return j+1
+
+def lvl_trav(root,height,l):
+    if root is None:
+        return
+    elif height==1:
+        l.append(root.value)
+    else:
+            lvl_trav(root.left,height-1,l)
+            lvl_trav(root.right,height-1,l)
+
+def lvl(root):
+    l=[]
+    h=height(root)
+    for i in range(1,h+1):
+        lvl_trav(root,i,l)
+        print(l[-1])
+        l[:]=[]
+        
+        
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(7)
+    node.insert(1)
+    node.insert(2)
+    node.insert(0)
+    node.insert(22)
+    node.insert(25)
+    node.insert(28)
+    node.insert(24)
+    node.insert(14)
+    print("The inorder traversal of the node:")
+    node.inorder()
+    print("The right view of the tree:")
+    lvl(node)
