@@ -1,0 +1,39 @@
+from _testcapi import INT_MAX, INT_MIN
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.max=None
+        self.min=None
+
+def lvl_trav(l):
+    if len(l)==0:
+        return False
+    else:
+        queue=[]
+        i=0
+        node=Node(l[i])
+        node.max=INT_MAX
+        node.min=INT_MIN
+        i=i+1
+        queue.append(node)
+        while i<len(l) and queue:
+            s=queue.pop(0)
+            if (i<len(l)) and (l[i]<s.value and l[i]>s.min):
+               node=Node(l[i])
+               node.min=s.min
+               node.max=s.value
+               i=i+1
+               queue.append(node)
+            if (i<len(l)) and l[i]>s.value and l[i]<s.max:
+               node=Node(l[i])
+               node.min=s.value
+               node.max=s.max
+               i=i+1
+               queue.append(node)
+    if(i==len(l)):
+        return True
+    return False
+
+if __name__=="__main__":
+    l=[7,44,12,3,6,8,1,5,10]
+    print(lvl_trav(l))
