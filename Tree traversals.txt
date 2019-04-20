@@ -1,0 +1,644 @@
+Constructing a Tree:
+--------------------
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+            else:
+                print("Duplication not allowed")
+                
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(9)
+    node.insert(1)
+    node.insert(2)
+    node.insert(0)
+    node.insert(17)
+    node.insert(21)
+    node.insert(13)
+    node.insert(19)
+    node.inorder()
+
+Vertical Order Traversal of a tree:
+-----------------------------------
+
+from collections import defaultdict
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+        self.id=0
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+                    self.left.id=self.id-1
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+                    self.right.id=self.id+1
+            else:
+                print("Duplication not allowed")
+    def vert_order_trav(self):
+        m=defaultdict(list)
+        queue=[]
+        queue.append(self)
+        while queue:
+            s=queue.pop(0)
+            if s.id not in m:
+                m[s.id]=[]
+                m[s.id].append(s.value)
+            else:
+                m[s.id].append(s.value)
+            if s.left:
+                queue.append(s.left)
+            if s.right:
+                queue.append(s.right)
+        for i in sorted(m.keys()):
+            print(m[i])
+
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(9)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(17)
+    node.insert(14)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    node.vert_order_trav()
+
+Top view and bottom view of a BST:
+----------------------------------
+
+from collections import defaultdict
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+        self.id=0
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+                    self.left.id=self.id-1
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+                    self.right.id=self.id+1
+            else:
+                print("Duplication not allowed")
+    def vert_order_trav(self):
+        m=defaultdict(list)
+        queue=[]
+        queue.append(self)
+        while queue:
+            s=queue.pop(0)
+            if s.id not in m:
+                m[s.id]=[]
+                m[s.id].append(s.value)
+            else:
+                m[s.id].append(s.value)
+            if s.left:
+                queue.append(s.left)
+            if s.right:
+                queue.append(s.right)
+        print("The top view of BST")
+        for i in sorted(m.keys()):
+            print(m[i][0])
+        print("The bottom view of BST")
+        for i in sorted(m.keys()):
+            print(m[i][-1])
+        print("The vertical order traversal of BST")
+        for i in sorted(m.keys()):
+           for j in m[i]:
+               print(j)
+
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(9)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(17)
+    node.insert(14)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    node.vert_order_trav()
+
+
+Spiral Oreder Traversal:
+-----------------------
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+            else:
+                print("Duplication not allowed")
+    def inorder(self):
+        if self:
+            if self.left:
+                self.left.inorder()
+            print(self.value)
+            if self.right:
+                self.right.inorder()
+    def spiral_trav(self):
+        if self:
+            stack1=[]
+            stack2=[]
+            stack1.append(self)
+            while stack1 or stack2:
+                while stack1:
+                    s=stack1.pop(-1)
+                    print(s.value)
+                    if s.left:
+                        stack2.append(s.left)
+                    if s.right:
+                        stack2.append(s.right)
+                while stack2:
+                    s=stack2.pop(-1)
+                    print(s.value)
+                    if s.right:
+                        stack1.append(s.right)
+                    if s.left:
+                        stack1.append(s.left)
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(7)
+    node.insert(17)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    node.inorder()
+    print("Spiral order Traversal")
+    node.spiral_trav()
+
+Depth first search in Iterative:
+--------------------------------
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+            else:
+                print("Duplication not allowed")
+   
+    def inorder(self):
+        stack=[]
+        test=self
+        while True:
+            if test:
+                stack.append(test)
+                test=test.left
+            elif stack:
+                test=stack.pop(-1)
+                print(test.value)
+                test=test.right
+            else:
+                break
+    def preorder(self):
+        stack=[]
+        stack.append(self)
+        while stack:
+            s=stack.pop(-1)
+            print(s.value)
+            if s.right:
+                stack.append(s.right)
+            if s.left:
+                stack.append(s.left)
+    def postorder(self):
+        stack1=[]
+        stack2=[]
+        stack1.append(self)
+        while stack1:
+            s=stack1.pop(-1)
+            stack2.append(s)
+            if s.left:
+                stack1.append(s.left)
+            if s.right:
+                stack1.append(s.right)
+        while stack2:
+            print(stack2.pop(-1).value)
+            
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(7)
+    node.insert(17)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    print("Inorder Iterative")
+    node.inorder()
+    print("Preorder Iterative")
+    node.preorder()
+    print("Postorder Iterative")
+    node.postorder()
+
+Level order traversal:
+---------------------
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+            else:
+                print("Duplication not allowed")
+   
+    def levelorder(self):
+        queue=[]
+        queue.append(self)
+        while queue:
+            s=queue.pop(0)
+            print(s.value)
+            if s.left:
+                queue.append(s.left)
+            if s.right:
+                queue.append(s.right)
+            
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(7)
+    node.insert(17)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    print("Level order traversal of the tree")
+    node.levelorder()
+
+Height of the BST:
+-----------------
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+            else:
+                print("Duplication not allowed")
+    def height(self):
+        count=0
+        count1=0
+        stack=[]
+        queue=[]
+        queue.append(self)
+        while True:
+            count1=len(queue)
+            if not count1:
+                return count
+            else:
+                count=count+1
+            while count1:
+                s=queue[0]
+                count1=count1-1
+                if s.left:
+                    queue.append(s.left)
+                if s.right:
+                    queue.append(s.right)
+                queue.pop(0)
+                
+                
+    def levelorder(self):
+        queue=[]
+        queue.append(self)
+        while queue:
+            s=queue.pop(0)
+            print(s.value)
+            if s.left:
+                queue.append(s.left)
+            if s.right:
+                queue.append(s.right)
+            
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(7)
+    node.insert(17)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    print("Level order traversal of the tree")
+    node.levelorder()
+    print("Height of the tree is")
+    print(node.height())
+
+Reverse level order traversal:
+------------------------------
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+            else:
+                print("Duplication not allowed")
+    def height(self):
+        count=0
+        count1=0
+        stack=[]
+        queue=[]
+        queue.append(self)
+        while True:
+            count1=len(queue)
+            if not count1:
+                return count
+            else:
+                count=count+1
+            while count1:
+                s=queue[0]
+                count1=count1-1
+                if s.left:
+                    queue.append(s.left)
+                if s.right:
+                    queue.append(s.right)
+                queue.pop(0)
+
+    def level_order_reverse(self):
+        queue = []
+        stack = []
+        queue.append(self)
+        while queue:
+             s = queue.pop(0)
+             stack.append(s)
+             if s.right:
+                 queue.append(s.right)
+             if s.left:
+                 queue.append(s.left)
+        while stack:
+            print(stack.pop(-1).value)
+    def levelorder(self):
+        queue=[]
+        queue.append(self)
+        while queue:
+            s=queue.pop(0)
+            print(s.value)
+            if s.left:
+                queue.append(s.left)
+            if s.right:
+                queue.append(s.right)
+            
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(7)
+    node.insert(17)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    print("Level order traversal of the tree")
+    node.levelorder()
+    print("Height of the tree is")
+    print(node.height())
+    print("Level order traversal in reverse order:")
+    node.level_order_reverse()
+
+Right View and Left View
+------------------------
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+    def insert(self,value):
+        if not self:
+            self.value=value
+        else:
+            if self.value>value:
+                if self.left:
+                    self.left.insert(value)
+                else:
+                    self.left=Node(value)
+            elif self.value<value:
+                if self.right:
+                    self.right.insert(value)
+                else:
+                    self.right=Node(value)
+            else:
+                print("Duplication not allowed")
+    def level_order_height(self,height,l):
+        if not self:
+            return
+        elif height==1:
+            l.append(self.value)
+        else:
+            if self.left:
+                self.left.level_order_height(height-1,l)
+            if self.right:
+                self.right.level_order_height(height-1,l)
+    def height(self):
+        count=0
+        count1=0
+        stack=[]
+        queue=[]
+        queue.append(self)
+        while True:
+            count1=len(queue)
+            if not count1:
+                return count
+            else:
+                count=count+1
+            while count1:
+                s=queue[0]
+                count1=count1-1
+                if s.left:
+                    queue.append(s.left)
+                if s.right:
+                    queue.append(s.right)
+                queue.pop(0)
+
+    def level_order_reverse(self):
+        queue = []
+        stack = []
+        queue.append(self)
+        while queue:
+             s = queue.pop(0)
+             stack.append(s)
+             if s.right:
+                 queue.append(s.right)
+             if s.left:
+                 queue.append(s.left)
+        while stack:
+            print(stack.pop(-1).value)
+            
+    def level_order(self):
+        h=self.height()
+        l=[]
+        for i in range(1,h+1):
+            self.level_order_height(i,l)
+            print(l[-1])
+            l[:]=[]
+    def levelorder(self):
+        queue=[]
+        queue.append(self)
+        while queue:
+            s=queue.pop(0)
+            print(s.value)
+            if s.left:
+                queue.append(s.left)
+            if s.right:
+                queue.append(s.right)
+            
+if __name__=="__main__":
+    node=Node(12)
+    node.insert(5)
+    node.insert(1)
+    node.insert(0)
+    node.insert(2)
+    node.insert(7)
+    node.insert(17)
+    node.insert(21)
+    node.insert(25)
+    node.insert(28)
+    print("Level order traversal of the tree")
+    node.levelorder()
+    print("Height of the tree is")
+    print(node.height())
+    print("Level order traversal in reverse order:")
+    node.level_order_reverse()
+    print("level order traversal recursive")
+    node.level_order()
+    
+                        
+
+
+
+
+
+
+            
