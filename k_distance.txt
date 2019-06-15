@@ -1,0 +1,63 @@
+from collections import defaultdict
+
+class Node:
+    def __init__(self,value):
+        self.value=value
+        self.left=None
+        self.right=None
+
+node=Node(3)
+node.left=Node(5)
+node.right=Node(1)
+node.left.left=Node(6)
+node.left.right=Node(2)
+node.left.right.left=Node(7)
+node.left.right.right=Node(4)
+node.right.left=Node(0)
+node.right.right=Node(8)
+
+
+m=defaultdict(list)
+
+def addedges(u,v):
+    global m
+    m[u].append(v)
+    m[v].append(u)
+
+def inorder(root):
+    if root:
+        if root.left:
+            inorder(root.left)
+        if root.value not in m:
+            m[root.value]=[]
+        if root.left:
+            addedges(root.value,root.left.value)
+        if root.right:
+            addedges(root.value,root.right.value)
+        if root.right:
+            inorder(root.right)
+
+inorder(node)
+print(m)
+
+def find_node_k_distance(val,k):
+    visited=[False]*len(m)
+    queue=[]
+    count=0
+    q_length=0
+    queue.append(val)
+    visited[val]=True
+    while queue:
+        q_length=len(queue)
+        if count==k:
+            print(queue)
+        while q_length:
+            s=queue.pop(0)
+            for i in m[s]:
+                if not visited[i]:
+                    queue.append(i)
+                    visited[i]=True
+            q_length=q_length-1
+        count=count+1
+
+find_node_k_distance(5,3)
